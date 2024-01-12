@@ -8,5 +8,5 @@ public interface TareaRepository {
     List<Tarea> listarTareas();
     Tarea buscarTareaPorId(long id);
     void agregarTarea(Tarea tarea);
-
+    boolean eliminarTarea(long id);
 }

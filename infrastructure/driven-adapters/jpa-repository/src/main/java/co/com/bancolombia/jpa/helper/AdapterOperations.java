@@ -68,4 +68,9 @@ public abstract class AdapterOperations<E, D, I, R extends CrudRepository<D, I> 
     public List<E> findAll(){
         return toList(repository.findAll());
     }
+
+    protected boolean deleteById(I s) {
+        repository.deleteById(s);
+        return true;
+    }
 }

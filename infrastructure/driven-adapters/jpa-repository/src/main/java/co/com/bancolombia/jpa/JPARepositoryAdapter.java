@@ -35,4 +35,10 @@ implements TareaRepository
     public void agregarTarea(Tarea tarea) {
         super.save(tarea);
     }
+
+    //Metodo para eliminar una tarea
+    @Override
+    public boolean eliminarTarea(long id) {
+        return super.deleteById(String.valueOf(id));
+    }
 }

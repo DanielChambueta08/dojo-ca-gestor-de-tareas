@@ -2,6 +2,7 @@ package co.com.bancolombia.api;
 import co.com.bancolombia.model.tarea.Tarea;
 import co.com.bancolombia.usecase.agregartarea.AgregarTareaUseCase;
 import co.com.bancolombia.usecase.buscartareaporid.BuscarTareaPorIdUseCase;
+import co.com.bancolombia.usecase.eliminartarea.EliminarTareaUseCase;
 import co.com.bancolombia.usecase.listartareas.ListarTareasUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,7 @@ public class ApiRest {
     private final ListarTareasUseCase listarTareasUseCase;
     private final BuscarTareaPorIdUseCase buscarTareaPorIdUseCase;
     private final AgregarTareaUseCase agregarTarea;
+    private final EliminarTareaUseCase eliminarTareaUseCase;
 
     @GetMapping(path = "/path")
     public String commandName() {
@@ -58,5 +60,16 @@ public class ApiRest {
         }
     }
 
-
+    //Metodo para eliminar una tarea
+    @DeleteMapping(path = "/EliminarTarea/{id}")
+    public ResponseEntity<Tarea> deleteTarea(@PathVariable("id") long id) {
+        boolean tareaEliminada = eliminarTareaUseCase.eliminarTarea(id);
+        if (tareaEliminada) {
+            System.out.println("Tarea eliminada con éxito");
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            System.out.println("Tarea no encontrada");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
