@@ -19,7 +19,6 @@ implements TareaRepository
     }
 
     //Metodo para obtener todas las tareas
-
     @Override
     public List<Tarea> listarTareas() {
         return super.findAll();
