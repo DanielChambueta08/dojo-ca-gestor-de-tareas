@@ -23,4 +23,10 @@ implements TareaRepository
     public List<Tarea> listarTareas() {
         return super.findAll();
     }
+
+    //Metodo para buscar una tarea por id
+    @Override
+    public Tarea buscarTareaPorId(long id) {
+        return super.findById(String.valueOf(id));
+    }
 }
