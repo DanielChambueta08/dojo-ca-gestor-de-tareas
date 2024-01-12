@@ -1,5 +1,6 @@
 package co.com.bancolombia.api;
 import co.com.bancolombia.model.tarea.Tarea;
+import co.com.bancolombia.usecase.agregartarea.AgregarTareaUseCase;
 import co.com.bancolombia.usecase.buscartareaporid.BuscarTareaPorIdUseCase;
 import co.com.bancolombia.usecase.listartareas.ListarTareasUseCase;
 import lombok.AllArgsConstructor;
@@ -7,10 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +18,7 @@ import java.util.List;
 public class ApiRest {
     private final ListarTareasUseCase listarTareasUseCase;
     private final BuscarTareaPorIdUseCase buscarTareaPorIdUseCase;
+    private final AgregarTareaUseCase agregarTarea;
 
     @GetMapping(path = "/path")
     public String commandName() {
@@ -45,4 +44,19 @@ public class ApiRest {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    //Metodo para agregar una tarea
+    @PostMapping(path = "/AgregarTarea")
+    public ResponseEntity<Tarea> addTarea(@RequestBody Tarea newTarea) {
+        Tarea tareaAgregada = agregarTarea.agregarTarea(newTarea);
+        if (tareaAgregada == null) {
+            System.out.println("Tarea ya existe");
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }else{
+            System.out.println("Tarea agregada con éxito");
+            return new ResponseEntity<Tarea>(tareaAgregada, new HttpHeaders(), HttpStatus.CREATED);
+        }
+    }
+
+
 }

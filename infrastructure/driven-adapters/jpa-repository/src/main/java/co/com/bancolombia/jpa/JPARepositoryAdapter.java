@@ -29,4 +29,10 @@ implements TareaRepository
     public Tarea buscarTareaPorId(long id) {
         return super.findById(String.valueOf(id));
     }
+
+    //Metodo para agregar una tarea
+    @Override
+    public void agregarTarea(Tarea tarea) {
+        super.save(tarea);
+    }
 }
