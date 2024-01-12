@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  db:
+    container_name: db_dojo
+    image: postgres:13
+    environment:
+      POSTGRES_DB: dojo_ca
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: bancolombia123
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgAdmin:
+    container_name: pgAdmin_dojo
+    depends_on:
+      - db
+    image: dpage/pgadmin4:8.2
+    ports:
+      - "8080:80"
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=bancolombia123
+      - PGADMIN_DEFAULT_EMAIL=dojo@bancolombia.com
+volumes:
+  db-data:
+  #external: true
